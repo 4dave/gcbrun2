@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/gcbrun2/gcbrun2:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/gcbrun2/gcbrun2:$SHORT_SHA']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta', 'run', 'deploy', 'gcbrun2', '--region=us-central1', '--platform=managed', '--image=gcr.io/gcbrun2/gcbrun2:$SHORT_SHA']
